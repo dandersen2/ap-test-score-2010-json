@@ -10,5 +10,3 @@ class SchoolScoreTable
   end
 
 end
-
-
