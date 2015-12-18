@@ -23,25 +23,39 @@ class Controller
       command = input.split.shift
       user_input = input.split[1..-1].join(' ')
       case command
-      when 'Search'
-        matched = JSON.parse(open(url+'?$q='+user_input).read)
-        if matched.empty?
-          view.display('Please enter a valid school name to search')
+        when 'Search'
+          handle_search(user_input)
+        when 'Top_test_takers'
+          handle_top_records(user_input)
+        when ''
         else
-          usable_scores = SchoolScore.new(matched[0])
-          view.display_school_info(usable_scores)
-
-        end
-      when 'Top_test_takers'
-        matched = JSON.parse(open("#{url}?$order=ap_test_takers_%20DESC&$where=ap_test_takers_%20IS%20NOT%20NULL&$limit=1").read)
-        usable_scores = SchoolScore.new(matched[0])
-        view.display_school_info(usable_scores)
-      else
-        view.display("Sorry, I don't know that command.") unless input == "exit"
+          view.display("Sorry, I don't know that command.") unless input == "exit"
       end
     end
     view.display("End")
   end
+
+  def handle_search(user_input)
+    matched = JSON.parse(open(url+'?$q='+user_input).read)
+    if matched.empty?
+      view.display('Please enter a valid school name to search')
+    else
+      show_results(matched)
+    end
+  end
+
+  def handle_top_records(user_input)
+    matched = JSON.parse(open("#{url}?$order=ap_test_takers_%20DESC&$where=ap_test_takers_%20IS%20NOT%20NULL&$limit=1").read)
+    show_results(matched)
+  end
+
+  private
+
+  def show_results(matched)
+    usable_scores = SchoolScore.new(matched[0])
+    view.display_school_info(usable_scores)
+  end
+
 end
 
 Controller.new
