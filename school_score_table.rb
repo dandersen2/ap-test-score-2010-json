@@ -6,7 +6,7 @@ class SchoolScoreTable
   end
 
   def populate_table(scores)
-    scores.map { |score| SchoolScore.new(score) }
+    scores.map {|score| SchoolScore.new(score)}
   end
 
 end
