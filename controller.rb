@@ -20,17 +20,21 @@ class Controller
     view.display_welcome_message
     until input == "exit"
       input = view.get_input
-      # reader = JSON.parse(open(url).read)
-      # score_data = SchoolScoreTable.new(reader)
+      command = input.split.shift
+      user_input = input.split[1..-1].join(' ')
       # binding.pry
-      if true
-        # binding.pry
-        matched = JSON.parse(open(url+'?$q=' +input).read)
-        binding.pry
-        usable_scores = SchoolScore.new(matched[0])
-        view.display(usable_scores.ap_test_takers_)
-        view.display(usable_scores.total_exams_taken)
-        view.display(usable_scores.number_of_exams_with_scores_3_4_or_5)
+      case command
+      when 'Search'
+        matched = JSON.parse(open(url+'?$q='+user_input).read)
+        if matched.empty?
+          view.display('Please enter a valid school name to search')
+        else
+          usable_scores = SchoolScore.new(matched[0])
+          view.display('This is the High School: ' + usable_scores.schoolname)
+          view.display('AP test takers: ' + usable_scores.ap_test_takers)
+          view.display('Total exams taken: ' + usable_scores.total_exams_taken)
+          view.display('Number of exams with a score of 3, 4 or 5: ' + usable_scores.number_of_exams_with_scores_3_4_or_5)
+        end
       else
         view.display("Sorry, I don't know that command.") unless input == "exit"
       end
