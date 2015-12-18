@@ -22,11 +22,16 @@ class View
   end
 
   def draw_xmas_tree
-    display("     /\\\n    /  \\\n   / ~* \\\n  / ~*~* \\\n / ~*~*~* \\\n    ||||    ")
+    display("      $\n     / \\\n    / * \\\n   / *~* \\\n  / *~*~* \\\n / *~*~*~* \\\n    |||||")
   end
 
   def draw_face
-    display("            ############\n          #############\n")
+    face = [" __.-._",
+            " '-._\"7'",
+            " /'.-c",
+            " |  /T",
+            "_)_/LI"]
+    display(face.join("\n"))
   end
 
 end
