@@ -35,6 +35,8 @@ class Controller
           view.display('Total exams taken: ' + usable_scores.total_exams_taken)
           view.display('Number of exams with a score of 3, 4 or 5: ' + usable_scores.number_of_exams_with_scores_3_4_or_5)
         end
+      # when 'Top'
+
       else
         view.display("Sorry, I don't know that command.") unless input == "exit"
       end
