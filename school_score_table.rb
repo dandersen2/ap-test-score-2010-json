@@ -10,5 +10,3 @@ class SchoolScoreTable
   end
 
 end
-
-#scores argument is an array of hashes containing all the individual school attribute info.
